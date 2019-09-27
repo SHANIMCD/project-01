@@ -2,10 +2,43 @@
   box-sizing: border-box;
 }
 
+h1 {
+color: #00ff55;
+text-transform: uppercase;
+font-size: 60px;
+font-family: 'Saira Stencil One', cursive;
+line-height: 40px;
+margin-block-start: 0.1em;
+margin-block-end: 0.1em;
+}
+
+button {
+  padding: 1.5%;
+  margin: 2%;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  color: magenta;
+  background-color: orange;
+}
+
+
+#loser {
+  color: #00ff55;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+}
+
+#press-play {
+  color: #00ff55;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 30px;
+}
+
 body {
   background-image: url(https://wallpaperplay.com/walls/full/1/d/d/101186.jpg);
   align-items: center;
   display: flex;
+  flex-direction: row;
   height: 100vh;
   justify-content: center;
   margin: 0;
@@ -28,7 +61,8 @@ body {
 }
 
 .grid div {
-  /* border: 1px solid; */
+  border: 1px solid grey;
+  opacity: 0.5;
   flex-grow: 1;
   height: 5%;
   width: 5%;
@@ -39,6 +73,7 @@ body {
   /* background-position-x: 0;
   background-position-y: 0; */
   border-radius: 50%;
+
 }
 
  .grid div.snakehead {

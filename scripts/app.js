@@ -3,14 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 20
   const grid = document.querySelector('.grid')
   const cells = []
-  
-  let snake = 0
+  let snake = 132
+  const loserSign = document.querySelector('#loser')
+  const pressPLay = document.querySelector('#press-space')
+  // let snakeArray = [0, 1]
   let snakeDirection = 'right'
-  // const gameOver = 
-  // console.log(gameOver)
-
-
-
+  const startButton = document.querySelector('#start')
+  const resetButton = document.querySelector('#reset')
+  
+  
 
   function initGame() {
     for (let i = 0; i < width * width; i++) {
@@ -18,16 +19,37 @@ document.addEventListener('DOMContentLoaded', () => {
       grid.appendChild(cell)
       cells.push(cell)
     }
+    moveSnake()
+    bringTheFood()
+    resetButton.style.display = 'none'
+    startButton.style.display = 'none'
   }
 
-  function checkWall() {
-    const wallArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 39, 40, 59, 60, 79, 80, 99, 100, 119, 120, 139, 140, 159, 160, 179, 180, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199]
+  // pause button
+  resetButton.addEventListener('click', () => {
+    // setTimeout(() => {
+    clearInterval(moveAuto)
+    // }, 50)
     
-    for (let i = 0; i < wallArray.length; i++) {
-      if (snake === wallArray[i]) {
-        console.log('lost')
-      }  
-    }
+  })
+
+  // resume button
+  // startButton.addEventListener('click', () => {
+  //   setInterval(() => {
+  //     moveSnake()
+  //   }, 300)
+  //   console.log('proceed')
+  //   setInterval(moveSnake, 300)
+  // })
+
+
+  // Game over
+  function gameOver() {
+    clearInterval(moveSnake)
+    console.log('you lose')
+    grid.style.display = 'none'
+    loserSign.innerHTML = 'You lose!  Press Start to go again!'
+    resetButton.style.display = 'none'
   } 
   
   
@@ -40,11 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
     cells[randomFood].classList.add('food') 
     
   }
-  
 
+  // hit wall function /game over
+  // hitting top wall - if the snake index goes below zero, game over.
+ 
+  // hitting the botton wall - if the snake index is greater than 399, game over
+  // hitting the left wall - if the snake index is greater than the width,  
   
   
-  
+  // when the move snake is invoked, firstly the class of snake is removed.
+  // Next, the switch statement of snake direction is invoked.  It goes down the list in order of directions.  Left first.
+  // If the left hasnt been pressed, up is checked and then right and so on. 
+  // If any are satisfied, the action command is carried. E.g / minuus width from the snake index.
+  // the next statement in the function will be tested.  will the new snake index satisfy the new if statement within the function?
+  // Does the next step (direction)  
+
   function moveSnake() {  
     cells[snake].classList.remove('snake')
     console.log(snake)
@@ -60,18 +92,27 @@ document.addEventListener('DOMContentLoaded', () => {
         break   
     }
 
-    cells[snake].classList.add('snake')
-    checkWall()
-    
+    if (snake < 0) {
+      gameOver()
+    } else if (snake > 399) {
+      gameOver()
+    } else if (snake % width === width - 1) {
+      gameOver()
+    } else if (snake % width === width + 1) {
+      gameOver()
+    } else {
+      cells[snake].classList.add('snake')
+    }
   }
 
   const moveAuto = setInterval(moveSnake, 500)
 
   
   
-  initGame()
   
-  moveSnake()
+  // initGame()
+  
+  // moveSnake()
   
   document.addEventListener('keydown', e => {
     switch (e.keyCode) {
@@ -85,10 +126,44 @@ document.addEventListener('DOMContentLoaded', () => {
         break   
     }
   })
-  bringTheFood()
+  // bringTheFood()
   
   
+  
+  function startScreen() {
+    clearInterval(moveAuto)
+    
+    grid.style.display = 'none'
+    resetButton.style.display = 'none'
+
+    // start button
+    startButton.addEventListener('click', () => {
+      initGame()
+      // moveSnake()
+      // bringTheFood()
+      gameOver()
+      grid.style.display = 'flex'
+      loserSign.style.display = 'none'
+      startButton.style.display = 'flex'
+      console.log('proceed')
+      setInterval(moveSnake, 300)
+    })
+
+  } 
+  startScreen()
+
+
 })
+
+
+// startButton.addEventListener('click', () => {
+//   setInterval(() => {
+//     moveSnake()
+//   }, 300)
+//   console.log('proceed')
+//   setInterval(moveSnake, 300)
+// })
+
 
 
 // const moveAuto = setInterval(moveSnakeAuto, 1000)
