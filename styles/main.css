@@ -28,17 +28,23 @@ button {
   font-size: 30px;
 }
 
-#press-play {
+#press-left {
   color: #00ff55;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 30px;
+  font-size: 18px;
+}
+#press-leftt {
+  color: #00ff55;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 22px;
 }
 
 body {
+  background-color: coral;
   background-image: url(https://wallpaperplay.com/walls/full/1/d/d/101186.jpg);
   align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
   margin: 0;
@@ -68,6 +74,7 @@ body {
   width: 5%;
 }
 
+
 .grid div.snake {
   background-color:green;
   /* background-position-x: 0;
@@ -92,4 +99,22 @@ body {
 .grid div.food {
   background-color: brown;
   border-radius: 50%;
+}
+
+.wall {
+  color:hotpink;
+}
+
+.footer {
+  
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #2341a2;
+    line-height: 150%;
+    color: white;
+    text-align: center;
+    margin-bottom: 0;
+
 }

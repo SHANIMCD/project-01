@@ -4,15 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const cells = []
   let snake = 132
+
+  
   const loserSign = document.querySelector('#loser')
-  const pressPLay = document.querySelector('#press-space')
-  // let snakeArray = [0, 1]
+  // const pressPLay = document.querySelector('#press-space')
   let snakeDirection = 'right'
   const startButton = document.querySelector('#start')
-  const resetButton = document.querySelector('#reset')
-  
-  
+  const stopButton = document.querySelector('#stop')
+  // let gameLoaded = false
 
+  
   function initGame() {
     for (let i = 0; i < width * width; i++) {
       const cell = document.createElement('div')
@@ -21,47 +22,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     moveSnake()
     bringTheFood()
-    resetButton.style.display = 'none'
+    
+    snakeEats()
+    
+    stopButton.style.display = 'flex'
     startButton.style.display = 'none'
+    // gameLoaded = true
   }
 
+  // if (gameLoaded === false) initGame()
+
   // pause button
-  resetButton.addEventListener('click', () => {
+  stopButton.addEventListener('click', () => {
     // setTimeout(() => {
     clearInterval(moveAuto)
     // }, 50)
-    
+      
   })
 
   // resume button
-  // startButton.addEventListener('click', () => {
-  //   setInterval(() => {
-  //     moveSnake()
-  //   }, 300)
-  //   console.log('proceed')
-  //   setInterval(moveSnake, 300)
-  // })
+  startButton.addEventListener('click', () => {
+    setInterval(() => {
+      // moveSnake()
+      initGame()
+    }, 300)
+    console.log('proceed')
+    setInterval(moveSnake, 300)
+    
+  })
+
 
 
   // Game over
   function gameOver() {
-    clearInterval(moveSnake)
+    clearInterval(moveAuto)
     console.log('you lose')
     grid.style.display = 'none'
     loserSign.innerHTML = 'You lose!  Press Start to go again!'
-    resetButton.style.display = 'none'
+    stopButton.style.display = 'none'
+    startButton.style.display = 'flex'
+      
   } 
-  
-  
-  
+    
+    
+    
   function bringTheFood() {
     let randomFood = Math.floor(Math.random() * cells.length)
-    while (cells[randomFood].classList.contains('snake')) {  
+    while (cells[randomFood].classList.contains(snake)) {  
       randomFood = Math.floor(Math.random() * 400)
     }
     cells[randomFood].classList.add('food') 
     
   }
+  
+
+  
+  function snakeEats() {
+    let snakePosition = cells[snake].classList.contains('snake')
+    if (cells[snakePosition].classList.contains('food')) {
+      // cells[snake].classList.remove('food')
+      console.log('snake eats') 
+      bringTheFood()
+    } 
+  }
+    
+  
+    
 
   // hit wall function /game over
   // hitting top wall - if the snake index goes below zero, game over.
@@ -80,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function moveSnake() {  
     cells[snake].classList.remove('snake')
     console.log(snake)
-
+     
     switch (snakeDirection) {
       case 'left': snake = snake - 1
         break  
@@ -92,6 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
         break   
     }
 
+    // if (snake < 0) {
+    //   gameOver()
+    // } else if (snake > 399) {
+    //   gameOver()
+    // } else if (snake % width === width - 1) {
+    //   gameOver()
+    // } else if (snake % width === width + 1) {
+    //   gameOver()
+    // } else {
+    //   cells[snake].classList.add('snake')
+      
+    // }
+
+
     if (snake < 0) {
       gameOver()
     } else if (snake > 399) {
@@ -102,7 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
       gameOver()
     } else {
       cells[snake].classList.add('snake')
+      
     }
+    // deleteSnake()
+    // displaySnake()
+    
   }
 
   const moveAuto = setInterval(moveSnake, 500)
@@ -110,9 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
   
-  // initGame()
-  
-  // moveSnake()
   
   document.addEventListener('keydown', e => {
     switch (e.keyCode) {
@@ -125,65 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
       case 40: snakeDirection = 'down'
         break   
     }
-  })
-  // bringTheFood()
-  
-  
-  
-  function startScreen() {
-    clearInterval(moveAuto)
     
-    grid.style.display = 'none'
-    resetButton.style.display = 'none'
-
-    // start button
-    startButton.addEventListener('click', () => {
-      initGame()
-      // moveSnake()
-      // bringTheFood()
-      gameOver()
-      grid.style.display = 'flex'
-      loserSign.style.display = 'none'
-      startButton.style.display = 'flex'
-      console.log('proceed')
-      setInterval(moveSnake, 300)
-    })
-
-  } 
-  startScreen()
+  })
+  
+  
+  
+  initGame()
 
 
 })
-
-
-// startButton.addEventListener('click', () => {
-//   setInterval(() => {
-//     moveSnake()
-//   }, 300)
-//   console.log('proceed')
-//   setInterval(moveSnake, 300)
-// })
-
-
-
-// const moveAuto = setInterval(moveSnakeAuto, 1000)
-// clearInterval(moveAuto)
-//start interval. direction picked by user.  
-// e.keycode
-
-
-
-// function snakeDirection() {
-//  if (snake[0] % width === 0 && snakeDirection === 'left') {
-//     return gameOver
-//   } else if (snake[0] % width === width - 1 && snakeDirection === 'right') {
-//     return gameOver
-//   } else if (snake[0] - width < 0 && snakeDirection === 'up') {
-//     return gameOver
-//   } else if (snake[0] >= width * (width - 1) && snakeDirection === 'down') {
-//     return gameOver
-//   }
-// }
 
 
 
