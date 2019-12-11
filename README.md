@@ -10,8 +10,6 @@ HTML5
 CSS
 Javascript
 
-Deployed using Github
-Please see the link here: [Shani's Github Link]
 
 # **The Game Itself**
 Starting with the grid and a default placement of the snake.  The aim of the game is to grow your snake as much as possible by eating the randomly placed food.  Each time the food is eaten, the snake grows and the speed of the snake's movement increases. If the head of the snake moves outiside of the grid or over itself, then game is over.
