@@ -68,6 +68,6 @@ The greatest benefit of the solution was that my code would still work if I alte
 
 **To Improve**
 I would take the time and refactor the code as I believe there's a high chance that the game can be written with a lesser amount of lines.
-Also, I created a start game button but ran out of time before I could work out how to fix it.  So at the moment I refresh the game to start again.
+Also, I created a start game button but ran out of time before I could work out how to fix it.  So at the moment I refresh the page to start again.
 
 
